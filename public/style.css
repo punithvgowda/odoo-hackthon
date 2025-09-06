@@ -137,5 +137,24 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 
 .desc {
   font-size: 14px;
-  color: #bbb;
+  color: #000000;
+}
+footer {
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 1px;
+}
+
+/* Footer links styling */
+footer a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+/* Hover effect on footer links */
+footer a:hover {
+  text-decoration: underline;
 }

@@ -70,6 +70,9 @@ app.get("/home", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login");
 });
+app.get("/new",(req,res)=>{
+  res.render("new")
+})
 
 // Signup page
 app.get("/signup", (req, res) => {
