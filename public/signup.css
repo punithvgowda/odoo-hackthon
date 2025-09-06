@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: url(https://cdn.magicdecor.in/com/2025/01/28160727/Sustainable.jpg) no-repeat center center fixed;
+  background-size: cover; /* stretch to cover entire screen */
+}
+.flash-container {
+  position: fixed;    /* fixed so it stays on top when scrolling */
+  top: 0px;          /* adjust based on your navbar height */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;         /* or a fixed width */
+  z-index: 1050;      /* above other content */
+}

@@ -1,0 +1,63 @@
+*{
+    margin: 0px;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.307);
+}
+
+.flash-container {
+  position: fixed;    /* fixed so it stays on top when scrolling */
+  top: 130px;          /* adjust based on your navbar height */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;         /* or a fixed width */
+  z-index: 1050;      /* above other content */
+}
+
+
+#navbar{
+    border: 2px solid rgba(255, 255, 255, 0);
+    height: 130px;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    padding: 5px;
+}
+#image img{
+        position: fixed;
+        height: 120px;
+        width: 300px;
+        top: 1px;
+        left: 40px;
+        
+
+}
+#options 
+{
+display: flex;
+position: absolute;
+left: 500px;
+top:50px;
+
+
+
+
+}
+#options  div{
+    margin-left: 90px;
+  font-family: "Libertinus Serif", serif;
+  font-size: 25px;
+  font-weight: bolder;
+  font-style: normal;
+
+  
+}
+#options  div a
+{
+    text-decoration: none;
+      color: black;
+}
+#options  div a:hover{
+  
+      color:#198754;
+}
