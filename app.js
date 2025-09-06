@@ -2,19 +2,13 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
-
 const session = require("express-session");
 const flash = require("connect-flash");
-
-const { User, Product } = require("./schema");
-
-
+const { User, Product } = require("./schema"); // Make sure both are exported from schema.js
 
 // ===== MIDDLEWARE =====
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Serve static files
 app.use(express.static(path.join(__dirname, "public"), { etag: false, maxAge: 0 }));
 
 // EJS setup
@@ -25,18 +19,18 @@ app.set("views", path.join(__dirname, "views"));
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/reneweddb");
 }
-
 main()
   .then(() => console.log("✅ Connection successful"))
   .catch((err) => console.log("❌ Connection failed:", err));
 
 // ===== SESSION & FLASH =====
-app.use(session({
-  secret: "yourSecretKey", // replace with a secure secret
-  resave: false,
-  saveUninitialized: true
-}));
-
+app.use(
+  session({
+    secret: "yourSecretKey",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.use(flash());
 
 // Make flash messages and user info available in all views
@@ -61,57 +55,54 @@ app.use(async (req, res, next) => {
 
 // ===== ROUTES =====
 
-// Home page
-app.get("/", async(req, res) => {
- try {
+// Redirect root to /home
+app.get("/", (req, res) => res.redirect("/home"));
+
+// Home page - fetch products
+app.get("/home", async (req, res) => {
+  try {
     const products = await Product.find();
     res.render("index", { products });
   } catch (err) {
     console.error(err);
     res.render("index", { products: [] });
-  } // user info available in EJS via res.locals.user
+  }
 });
 
-app.get("/home", async(req, res) => {
-try {
-    const products = await Product.find();
-    res.render("index", { products });
+// Show new product form
+app.get("/new", (req, res) => {
+  res.render("new");
+});
+
+// POST new product - save and redirect
+app.post("/new", async (req, res) => {
+  try {
+    const { name, description, image, price, location, donating } = req.body;
+
+    const newProduct = new Product({
+      name,
+      description,
+      image,
+      price,
+      location,
+      donating,
+    });
+
+    await newProduct.save();
+    req.flash("success_msg", "Product added successfully!");
+    res.redirect("/home"); // PRG pattern: redirect to prevent duplicate POST
   } catch (err) {
     console.error(err);
-    res.render("index", { products: [] });
+    req.flash("error_msg", "Error adding product!");
+    res.redirect("/new");
   }
 });
 
 // Login page
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-app.get("/new",(req,res)=>{
-  res.render("new")
-})
-app.post("/new", async (req, res) => {
-  try {
-    const { name, description, image, price, location, donating } = req.body;
-    console.log(req.body);
-    const newProduct = new Product({ name, description, image, price, location, donating });
-    await newProduct.save();
-
-    req.flash("success_msg", "Product added successfully!");
-
-    const products = await Product.find();
-    res.render("index", { products });
-  } catch (err) {
-    console.error(err);
-    req.flash("error_msg", "Error adding product!");
-    res.render("index", { products: [] });
-  }
-});
-
+app.get("/login", (req, res) => res.render("login"));
 
 // Signup page
-app.get("/signup", (req, res) => {
-  res.render("signup");
-});
+app.get("/signup", (req, res) => res.render("signup"));
 
 // ===== LOGIN =====
 app.post("/login", async (req, res) => {
@@ -129,13 +120,10 @@ app.post("/login", async (req, res) => {
       return res.redirect("/login");
     }
 
-    // Save login timestamp
     existingUser.loginHistory.push(new Date());
     await existingUser.save();
 
-    // Set session
     req.session.userId = existingUser._id;
-
     req.flash("success_msg", "Login successful!");
     return res.redirect("/home");
   } catch (err) {
@@ -149,11 +137,9 @@ app.post("/login", async (req, res) => {
 app.post("/signup", async (req, res) => {
   try {
     const { name, email, password, confirmpassword, location } = req.body;
-
     const newUser = new User({ name, email, password, confirmpassword, location });
-    await newUser.save();
 
-    // Set session
+    await newUser.save();
     req.session.userId = newUser._id;
 
     req.flash("success_msg", "Signup successful!");
@@ -167,10 +153,8 @@ app.post("/signup", async (req, res) => {
 
 // ===== LOGOUT =====
 app.get("/logout", (req, res) => {
-  req.session.destroy(err => {
-         
+  req.session.destroy((err) => {
     if (err) console.error(err);
-   
     res.redirect("/home");
   });
 });
@@ -179,12 +163,10 @@ app.get("/logout", (req, res) => {
 app.get("/profile/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-
     if (!user) {
       req.flash("error_msg", "User not found");
       return res.redirect("/home");
     }
-
     res.render("profile", { user });
   } catch (err) {
     console.error(err);
