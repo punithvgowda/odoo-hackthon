@@ -2,9 +2,13 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
-const User = require("./schema.js");
+
 const session = require("express-session");
 const flash = require("connect-flash");
+
+const { User, Product } = require("./schema");
+
+
 
 // ===== MIDDLEWARE =====
 app.use(express.json());
@@ -58,12 +62,24 @@ app.use(async (req, res, next) => {
 // ===== ROUTES =====
 
 // Home page
-app.get("/", (req, res) => {
-  res.render("index"); // user info available in EJS via res.locals.user
+app.get("/", async(req, res) => {
+ try {
+    const products = await Product.find();
+    res.render("index", { products });
+  } catch (err) {
+    console.error(err);
+    res.render("index", { products: [] });
+  } // user info available in EJS via res.locals.user
 });
 
-app.get("/home", (req, res) => {
-  res.render("index");
+app.get("/home", async(req, res) => {
+try {
+    const products = await Product.find();
+    res.render("index", { products });
+  } catch (err) {
+    console.error(err);
+    res.render("index", { products: [] });
+  }
 });
 
 // Login page
@@ -73,6 +89,24 @@ app.get("/login", (req, res) => {
 app.get("/new",(req,res)=>{
   res.render("new")
 })
+app.post("/new", async (req, res) => {
+  try {
+    const { name, description, image, price, location, donating } = req.body;
+    console.log(req.body);
+    const newProduct = new Product({ name, description, image, price, location, donating });
+    await newProduct.save();
+
+    req.flash("success_msg", "Product added successfully!");
+
+    const products = await Product.find();
+    res.render("index", { products });
+  } catch (err) {
+    console.error(err);
+    req.flash("error_msg", "Error adding product!");
+    res.render("index", { products: [] });
+  }
+});
+
 
 // Signup page
 app.get("/signup", (req, res) => {

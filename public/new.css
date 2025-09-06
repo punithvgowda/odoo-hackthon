@@ -15,7 +15,7 @@ h1 {
   color: #065f46;
 }
 
-/* Centering the form */
+Centering the form
 form {
   max-width: 700px;
   margin: auto;
@@ -25,13 +25,13 @@ form {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Labels */
+Labels
 label {
   font-weight: 600;
   color: #065f46;
 }
 
-/* Inputs & Textareas */
+ Inputs & Textareas
 input[type="text"],
 input[type="number"],
 input[type="file"],
@@ -50,12 +50,12 @@ textarea:focus {
   outline: none;
 }
 
-/* File input */
+
 input[type="file"] {
   padding: 6px;
 }
 
-/* Button */
+
 button {
   width: 100%;
   background: #4ade80;
@@ -78,7 +78,7 @@ button:active {
   transform: translateY(0);
 }
 
-/* Feedback messages */
+
 .valid-feedback {
   color: #22c55e;
 }
@@ -87,7 +87,7 @@ button:active {
   color: #198754;
 }
 
-/* Spacing for rows */
+
 .mb-3 {
   margin-bottom: 1.5rem;
-}
+} 

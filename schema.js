@@ -14,5 +14,19 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
+
+
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: String,
+  image: String,
+  price: Number,
+  location: String,
+  donating: String
+});
+
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Product = mongoose.model("Product", productSchema);
+
+// Export both
+module.exports = { User, Product };

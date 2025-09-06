@@ -6,12 +6,13 @@
 .flash-container {
   position: fixed;
   top: 90px; /* just below navbar */
-  left: 50%;
+  left: 50%; /* center horizontally */
   transform: translateX(-50%);
-  width: 90%;
+  width: 90px;
   max-width: 500px;
   z-index: 1050;
 }
+
 
 .search{
     display: flex;
@@ -102,14 +103,16 @@ body {
   width: 350px;       /* increase size */
   flex: 0 0 auto;     /* prevents shrinking */
   box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-  transition: transform 0.3s, box-shadow 0.3s;
+ 
   margin-top: 50px;
+    transition: all 0.3s ease-in-out;
 }
 
 
 .card:hover {
   transform: translateY(-5px);
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0px 20px 10px rgba(25, 135, 84, 0.6); /* glow with softness */
+  transform: scale(1.02);
 
 }
 
