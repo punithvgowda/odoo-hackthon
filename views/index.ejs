@@ -18,38 +18,179 @@
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> -->
-      <div id="navbar">
-        <div id="image">
-      <img src="renewed.jpg" alt="Navbar">
+   <div id="navbar">
+  <div id="image">
+    <img src="renewed.jpg" alt="Navbar">
+  </div>
+  
+  <div id="options">
+    <div class="search"><form class="d-flex" role="search">
+<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 300px;"/>
 
-        </div>
-        <div id="options" >
-        
-        <div><a href="/" class="nav">Home</a></div>
-        <div><a href="/about"  class="nav">About</a></div>
-          <div><a href="login"  class="nav">Log In</a></div>
-          <div><a href="signup">Sign Up</a></div>
-           <div><a href="/about"  class="nav">Profile</a></div>
-            <div><a href="/about"  class="nav">Support</a></div>
-        
-            
-         
-        </div>
-<div class="flash-container">
-  <% if (success_msg.length > 0) { %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <%= success_msg %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
+
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form></div>
+    <div><a href="/" class="nav">Home</a></div>
+   
+  
+
+    <% if (user) { %>
+      <!-- User is logged in -->
+          <div><a href="/" class="nav">Add</a></div>
+      <div><a href="/profile/<%= user._id %>" class="nav">Profile</a></div>
+      <div><a href="/logout" class="nav">Logout</a></div>
+     
+    <% } else { %>
+      <!-- User is NOT logged in -->
+      <div><a href="/login" class="nav">Log In</a></div>
+      <div><a href="/signup" class="nav">Sign Up</a></div>
+    <% } %>
+
+
+  </div>
+</div>
+
+<!-- SPACING BELOW FIXED NAVBAR -->
+<div style="padding-top: 80px;"></div>
+
+<!-- FLASH MESSAGES -->
+<div class="container mt-2">
+  <% if (success_msg && success_msg.length) { %>
+    <% success_msg.forEach(msg => { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= msg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% }) %>
   <% } %>
 
-  <% if (error_msg.length > 0) { %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <%= error_msg %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
+  <% if (error_msg && error_msg.length) { %>
+    <% error_msg.forEach(msg => { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= msg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% }) %>
   <% } %>
 </div>
+
+
+
+
+<div style="padding-top: 120px;"></div>
+<div class="body">
+  <div class="container">
+    <div class="card">
+      <img src="./images/bike.jpg" alt="bike">
+      <div class="card-content">
+        <h3>Harley Devidson Iron883</h3>
+        <p class="price">$5000</p>
+        <p class="desc"> In Good Concdition.<br>
+        Manufactured year 2016</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="./images/chess.jpg" alt="ches">
+      <div class="card-content">
+        <h3>Chess Board</h3>
+        <p class="price">$150</p>
+        <p class="desc">High Quality wooden Board<br>
+        Black Pans</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="./images/car.jpg" alt="car">
+      <div class="card-content">
+        <h3>Cheep Compass Limited2.o</h3>
+        <p class="price">$27500</p>
+        <p class="desc">Condition :Good <BR>
+        Manufactured:2022<br>
+      Fuel:Disel</p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/dine2.jpg" alt="dine">
+      <div class="card-content">
+        <h3>Dineing Table</h3>
+        <p class="price">$200</p>
+        <p class="desc">High Quality wooden<br>
+        Condition:Good</p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/band.jpg" alt="band">
+      <div class="card-content">
+        <h3>Drum Set 5p10 Model</h3>
+        <p class="price">$1500</p>
+        <p class="desc">Conditon:Very Good</p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/laps.jpg" alt="dell">
+      <div class="card-content">
+        <h3>Dell Laptop i5</h3>
+        <p class="price">$250</p>
+        <p class="desc">Pre-Ownd Dell Laptop IN Excellent Condtion
+          <br>
+        Condition:Good
+        </p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/jacket.jpg" alt="Jacket">
+      <div class="card-content">
+        <h3>Vintage Leather Jacket</h3>
+        <p class="price">$150</p>
+        <p class="desc">Classic leather jacket from the 90s, perfect for fall weather.</p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/study.jpg" alt="study table">
+      <div class="card-content">
+        <h3>Wooden Study Table</h3>
+        <p class="price">$150</p>
+        <p class="desc">Perfect For Students and For Work From Home</p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/bat.jpg" alt="bat">
+      <div class="card-content">
+        <h3>Gray Nicolas Cricket Bat </h3>
+        <p class="price">$15</p>
+        <p class="desc">Condition:Good<br>
+        Good wood used</p>
+      </div>
+    </div>
+     <div class="card">
+      <img src="./images/jee.jpg" alt="jee">
+      <div class="card-content">
+        <h3>Mtg Mathematics For Jee Neet</h3>
+        <p class="price">$5</p>
+        <p class="desc">Good Book For Jee Aspirants
+
+        </p>
+      </div>
+   
+    </div>
+       <div class="card">
+      <img src="./images/atomic.jpg" alt="atomic">
+      <div class="card-content">
+        <h3>Atomic Habits </h3>
+        <p class="price">$15</p>
+        <p class="desc"><br>
+        Written By stfen</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+
 
    
     

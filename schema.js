@@ -6,9 +6,13 @@ const userSchema = new mongoose.Schema({
   password: String,
   confirmpassword: String,
   location: String,
+  loginHistory: [
+    {
+      type: Date,
+      default: Date.now
+    }
+  ]
 });
 
-// Create a model
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;
